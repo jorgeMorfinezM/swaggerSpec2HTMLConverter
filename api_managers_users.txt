@@ -1,0 +1,16 @@
+
+https://login.apigee.com/login
+https://apigee.com/organizations/jorgemorfinez-eval/specs/folder/254551/editor/254553
+
+jorgemorfinez@ofix.mx
+Jm13$_#Api
+
+
+
+
+
+https://localhost:9443/devportal/apis
+
+WSO2 API Manager
+admin
+admin

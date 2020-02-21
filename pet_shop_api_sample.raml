@@ -1,0 +1,83 @@
+#%RAML 1.0 
+title: Pet shop
+version: 1
+baseUri: /shop
+types:
+  Pet:
+    discriminator: kind
+    properties:
+      name: string
+      kind: string
+      price: number
+      color:
+        enum:
+          - White
+          - Black
+          - Colored
+    example:
+      name: "Snoopy"
+      kind: "Mammal"
+      price: 100
+      color: White
+ 
+  Mammal:
+    type: Pet
+  Bird:
+    type: Pet
+    properties:
+      wingLength: number
+ 
+resourceTypes:
+ 
+  Collection:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: <<item>>[]
+    post:
+      body:
+        application/json:
+          type: <<item>>
+ 
+  Member:
+    put:
+      body:
+        application/json:
+          type: <<item>>
+    delete:
+      responses:
+        204:
+ 
+traits:
+  FilterableByPrice:
+    queryParameters:
+      priceLessThen?:
+        type: number
+      priceMoreThen?:
+        type: number
+ 
+/pets:
+  type: { Collection: {item: Pet} }
+  get:
+    is: [FilterableByPrice]
+    queryParameters:
+      petKind:
+       enum: [bird, mammal]
+  /{id}:
+    type: { Member: {item : Pet} }
+ 
+/birds:
+  type: { Collection: {item: Bird} }
+  get:
+    is: [FilterableByPrice]
+  /{id}:
+    type: { Member: {item : Bird} }
+ 
+/mammals:
+  type: { Collection: {item: Mammal} }
+  get:
+    is: [FilterableByPrice]
+  /{id}:
+    type: { Member: {item : Mammal} }

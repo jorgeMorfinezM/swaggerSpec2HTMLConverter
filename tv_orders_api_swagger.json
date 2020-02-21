@@ -1,0 +1,178 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Contains all endpoints to manage orders via Web service and save, get, update data\non TV_ORDERS_H, TV_ORDERS_L in TV_Orders database.\n",
+    "version" : "0.0.1",
+    "title" : "TV Orders API"
+  },
+  "host" : "localhost:8243",
+  "basePath" : "/api/0.0.1",
+  "schemes" : [ "https", "http" ],
+  "security" : [ {
+    "default" : [ ]
+  } ],
+  "paths" : {
+    "/api/orders/id/header/" : {
+      "get" : {
+        "description" : "Obtiene la cabecera de una orden a partir de un ID de pedido y el tipo de pedido.",
+        "parameters" : [ {
+          "name" : "order_id",
+          "in" : "query",
+          "description" : "Numero de la orden",
+          "required" : true,
+          "type" : "number",
+          "format" : "integer"
+        }, {
+          "name" : "order_type",
+          "in" : "query",
+          "description" : "Tipo de pedido B2C/B2B",
+          "required" : true,
+          "type" : "string",
+          "format" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "title" : "ArrayOfOrdersHeader",
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "title" : "OrderHeader",
+                "properties" : {
+                  "order_id" : {
+                    "type" : "number"
+                  },
+                  "rfc_cliente" : {
+                    "type" : "string"
+                  },
+                  "nombre_cliente" : {
+                    "type" : "string"
+                  },
+                  "numero_cliente" : {
+                    "type" : "string"
+                  },
+                  "domicilio_cliente" : {
+                    "type" : "string"
+                  },
+                  "ciudad_cliente" : {
+                    "type" : "string"
+                  },
+                  "estado_cliente" : {
+                    "type" : "string"
+                  },
+                  "codigo_postal" : {
+                    "type" : "string"
+                  },
+                  "pais" : {
+                    "type" : "string"
+                  },
+                  "telefono_cliente" : {
+                    "type" : "string"
+                  },
+                  "correo_cliente" : {
+                    "type" : "string"
+                  },
+                  "subtotal_pedido" : {
+                    "type" : "number"
+                  },
+                  "impuesto_pedido" : {
+                    "type" : "number"
+                  },
+                  "total_pedido" : {
+                    "type" : "number"
+                  },
+                  "forma_pago_pedido" : {
+                    "type" : "string"
+                  },
+                  "metodo_compra_pedido" : {
+                    "type" : "string"
+                  },
+                  "fecha_pedido" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "Unlimited"
+      }
+    },
+    "/api/orders/list/cNc/" : {
+      "get" : {
+        "description" : "Obtiene listado de pedidos que aplican para click & collect",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "title" : "ArrayOfPersons",
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "title" : "Person",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "single" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "Unlimited"
+      }
+    },
+    "/api/orders/status/" : {
+      "get" : {
+        "description" : "Obtiene el estatus de un pedido a partir de un Id y su tipo.",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "title" : "ArrayOfPersons",
+              "type" : "array",
+              "items" : {
+                "type" : "object",
+                "title" : "Person",
+                "properties" : {
+                  "name" : {
+                    "type" : "string"
+                  },
+                  "single" : {
+                    "type" : "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "Unlimited"
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "default" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "https://localhost:8243/authorize",
+      "flow" : "implicit"
+    }
+  }
+}
